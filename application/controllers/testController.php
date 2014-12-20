@@ -18,5 +18,9 @@ class testController extends BaseController
             echo ", and I have this parameter: {$parameter}<br />";
         else
             echo "<br />";
+
+        // Require the model to handle user input.
+        require __DIR__ . '/../models/testModel.php';
+        $model = new testModel();
     }
 }
