@@ -1,0 +1,15 @@
+{
+    "name": "alice/framework",
+    "description": "A purposefully buggy framework.",
+    "license": "MIT",
+    "keywords": ["alice", "framework"],
+    "authors": [
+        {
+            "name": "Mr. Cyph3r",
+            "email": "mrcyph3r@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0"
+    }
+}
