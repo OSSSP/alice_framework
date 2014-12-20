@@ -1,9 +1,12 @@
 <?php
 
-class testController
+class testController extends BaseController
 {
     public function __construct()
     {
+        // I need to call parent constructor
+        parent::__construct();
+
         echo "I'm testController<br />";
     }
 
