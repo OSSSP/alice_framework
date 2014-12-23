@@ -2,6 +2,8 @@
 
 class Application
 {
+    protected $paths = array();
+
     public function __construct()
     {
         //echo "I'm Application.<br />";
@@ -18,8 +20,7 @@ class Application
         //echo "<br />";
 
         // The first portion of the url will always be the the name of the controller
-        // TODO: it would be better to implemento a getPath() method.
-        $controller_path = __DIR__ . '/../../../../../application/controllers/' . $url[0] . 'Controller.php';
+        $controller_path = $this->getPath('path.controllers') . "/{$url[0]}Controller.php";
 
         // Before requiring the controller lets check if file exists
         if (file_exists($controller_path))
@@ -49,6 +50,19 @@ class Application
             // controller/method
             $controller->{$url[1]}();
         }
+    }
 
+    public function bindPaths(array $paths)
+    {
+        foreach ($paths as $key => $value)
+        {
+            if (!isset($this->paths["path.{$key}"]))
+                $this->paths["path.{$key}"] = realpath($value);
+        }
+    }
+
+    public function getPath($path)
+    {
+        return isset($this->paths[$path]) ? $this->paths[$path] : false;
     }
 }

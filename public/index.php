@@ -13,4 +13,5 @@ require '../vendor/alice/framework/src/Core/BaseView.php';
 $app = new Application();
 
 // Run the application
+$app->bindPaths(require '../bootstrap/paths.php');
 $app->run();
