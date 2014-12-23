@@ -13,6 +13,7 @@ class BaseController
     {
         echo "I'm BaseController.<br />";
 
-        // TODO: instantiate the View object
+        // Instantiate the View object
+        $this->view = new BaseView();
     }
 }
