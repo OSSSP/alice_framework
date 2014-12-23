@@ -1,6 +1,6 @@
 <?php
 
-class indexController extends BaseController
+class indexController extends Alice\Core\BaseController
 {
     public function __construct()
     {

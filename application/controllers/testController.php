@@ -1,6 +1,6 @@
 <?php
 
-class testController extends BaseController
+class testController extends Alice\Core\BaseController
 {
     public function __construct()
     {

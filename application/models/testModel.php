@@ -1,6 +1,6 @@
 <?php
 
-class testModel extends BaseModel
+class testModel extends Alice\Core\BaseModel
 {
     public function __construct()
     {

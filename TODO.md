@@ -8,5 +8,5 @@
 
 ## Improvements
 
-- [ ] Implement namespacing and autoloading.
+- [x] Implement namespacing and autoloading.
 - [ ] Implement Form/Input object to handle user input.

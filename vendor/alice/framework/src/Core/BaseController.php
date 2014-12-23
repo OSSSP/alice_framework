@@ -1,4 +1,4 @@
-<?php
+<?php namespace Alice\Core;
 
 /**
  * This is the BaseController class
