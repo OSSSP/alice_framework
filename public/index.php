@@ -7,9 +7,10 @@ require '../vendor/alice/framework/src/Core/BaseModel.php';
 require '../vendor/alice/framework/src/Core/BaseView.php';
 
 
-echo "I'm public/index.php<br />";
+//echo "I'm public/index.php<br />";
 
 // Instantiate a new Application
 $app = new Application();
 
 // Run the application
+$app->run();

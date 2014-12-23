@@ -11,7 +11,7 @@ class BaseController
 {
     public function __construct()
     {
-        echo "I'm BaseController.<br />";
+        //echo "I'm BaseController.<br />";
 
         // Instantiate the View object
         $this->view = new BaseView();

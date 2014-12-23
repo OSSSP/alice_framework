@@ -4,6 +4,6 @@ class BaseModel
 {
     public function __construct()
     {
-        echo "I'm BaseModel.<br />";
+        //echo "I'm BaseModel.<br />";
     }
 }

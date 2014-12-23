@@ -4,13 +4,18 @@ class Application
 {
     public function __construct()
     {
+        //echo "I'm Application.<br />";
+    }
+
+    public function run()
+    {
         // Get ?url and remove trailing '/'
         $url = rtrim(isset($_GET['url']) ? $_GET['url'] : null, '/');
 
         $url = explode('/', $url);
 
-        var_dump($url);
-        echo "<br />";
+        //var_dump($url);
+        //echo "<br />";
 
         // The first portion of the url will always be the the name of the controller
         // TODO: it would be better to implemento a getPath() method.
@@ -44,5 +49,6 @@ class Application
             // controller/method
             $controller->{$url[1]}();
         }
+
     }
 }

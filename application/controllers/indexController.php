@@ -7,7 +7,7 @@ class indexController extends BaseController
         // I need to call parent constructor
         parent::__construct();
 
-        echo "I'm indexController<br />";
+        //echo "I'm indexController<br />";
 
         // Render homepage view
         $this->view->renderView('home/index');

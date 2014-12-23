@@ -7,6 +7,6 @@ class testModel extends BaseModel
         // Call parent constructor
         parent::__construct();
 
-        echo "I'm testModel.<br />";
+        //echo "I'm testModel.<br />";
     }
 }
