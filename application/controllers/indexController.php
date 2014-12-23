@@ -8,5 +8,8 @@ class indexController extends BaseController
         parent::__construct();
 
         echo "I'm indexController<br />";
+
+        // Render homepage view
+        $this->view->renderView('home/index');
     }
 }
