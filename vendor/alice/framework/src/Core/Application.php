@@ -31,7 +31,7 @@ class Application
         $controller_name = $url[0] . 'Controller';
         $controller = new $controller_name;
 
-        // The second portion of the url will always be the method, but we should check
+        // The second portion of the url will always be the method, but I should check
         // if a parameter is passed to the method before calling it.
         if (isset($url[2]))
         {
