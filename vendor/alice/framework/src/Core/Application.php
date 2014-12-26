@@ -2,7 +2,7 @@
 
 class Application
 {
-    protected $paths = array();
+    protected static $paths = array();
 
     public function __construct()
     {
@@ -20,7 +20,8 @@ class Application
         //echo "<br />";
 
         // The first portion of the url will always be the the name of the controller
-        $controller_path = $this->getPath('path.controllers') . "/{$url[0]}Controller.php";
+        //$controller_path = $this->getPath('path.controllers') . "/{$url[0]}Controller.php";
+        $controller_path = Application::getPath('path.controllers') . "/{$url[0]}Controller.php";
 
         // Before requiring the controller lets check if file exists
         if (file_exists($controller_path))
@@ -30,7 +31,7 @@ class Application
         else
         {
             // TODO: it would be nice to implement an exception handler.
-            throw new Exception("Controller {$controller_path} not found.", 1);
+            throw new \Exception("Controller {$controller_path} not found.", 1);
         }
 
         // Instantiate the Controller
@@ -56,13 +57,13 @@ class Application
     {
         foreach ($paths as $key => $value)
         {
-            if (!isset($this->paths["path.{$key}"]))
-                $this->paths["path.{$key}"] = realpath($value);
+            if (!isset(self::$paths["path.{$key}"]))
+                self::$paths["path.{$key}"] = realpath($value);
         }
     }
 
     public function getPath($path)
     {
-        return isset($this->paths[$path]) ? $this->paths[$path] : false;
+        return isset(self::$paths[$path]) ? self::$paths[$path] : false;
     }
 }
