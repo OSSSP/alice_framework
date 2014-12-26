@@ -12,7 +12,8 @@ class Application
     public function run()
     {
         // Get ?url and remove trailing '/'
-        $url = rtrim(isset($_GET['url']) ? $_GET['url'] : null, '/');
+        // If no controller is specified then load index by default
+        $url = rtrim(isset($_GET['url']) ? $_GET['url'] : 'index', '/');
 
         $url = explode('/', $url);
 
@@ -20,7 +21,6 @@ class Application
         //echo "<br />";
 
         // The first portion of the url will always be the the name of the controller
-        //$controller_path = $this->getPath('path.controllers') . "/{$url[0]}Controller.php";
         $controller_path = Application::getPath('path.controllers') . "/{$url[0]}Controller.php";
 
         // Before requiring the controller lets check if file exists
@@ -43,13 +43,26 @@ class Application
         if (isset($url[2]))
         {
             // controller/method/parameter
-            // TODO: check if method exists.
-            $controller->{$url[1]}($url[2]);
+            if (method_exists($controller, $url[1]))
+            {
+                $controller->{$url[1]}($url[2]);
+            }
+            else
+            {
+                throw new \Exception("Controller {$controller_path} doesn't have a {$url[1]} method.", 1);
+            }
         }
         else if (isset($url[1]))
         {
             // controller/method
-            $controller->{$url[1]}();
+            if (method_exists($controller, $url[1]))
+            {
+                $controller->{$url[1]}();
+            }
+            else
+            {
+                throw new \Exception("Controller {$controller_path} doesn't have a {$url[1]} method.", 1);
+            }
         }
     }
 
