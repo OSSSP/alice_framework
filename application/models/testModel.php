@@ -9,4 +9,9 @@ class testModel extends Alice\Core\BaseModel
 
         //echo "I'm testModel.<br />";
     }
+
+    public function testMethod()
+    {
+        return 'return value of testMethod()';
+    }
 }

@@ -19,13 +19,9 @@ class testController extends Alice\Core\BaseController
     {
         //echo "I'm test() method";
 
-        if ($parameter)
-            echo ", and I have this parameter: {$parameter}<br />";
-        else
-            echo "<br />";
+        $result = $this->model->testMethod();
+        $this->view->result = $result;
 
-        // Require the model to handle user input.
-        require __DIR__ . '/../models/testModel.php';
-        $model = new testModel();
+        $this->view->renderView('test/result');
     }
 }
