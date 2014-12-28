@@ -21,7 +21,7 @@ class Application
         //echo "<br />";
 
         // The first portion of the url will always be the the name of the controller
-        $controller_path = Application::getPath('path.controllers') . "/{$url[0]}Controller.php";
+        $controller_path = Application::getPath('path.controllers') . DIRECTORY_SEPARATOR . "{$url[0]}Controller.php";
 
         // Before requiring the controller lets check if file exists
         if (file_exists($controller_path))

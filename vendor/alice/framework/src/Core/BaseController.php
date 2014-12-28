@@ -25,7 +25,7 @@ class BaseController
     function bindModel()
     {
         $relatedModel = str_replace('Controller', 'Model', get_class($this));
-        $modelPath = Application::getPath('path.models') . "/{$relatedModel}.php";
+        $modelPath = Application::getPath('path.models') . DIRECTORY_SEPARATOR . "{$relatedModel}.php";
 
         // If Model exists then load it
         if (file_exists($modelPath))
