@@ -75,8 +75,11 @@ class Application
     {
         foreach ($paths as $key => $value)
         {
-            if (!isset(self::$paths["path.{$key}"]))
-                self::$paths["path.{$key}"] = realpath($value);
+            $real_path = realpath($value);
+
+            // Do not include invalid paths
+            if (!isset(self::$paths["path.{$key}"]) && $real_path != false)
+                self::$paths["path.{$key}"] = $real_path;
         }
     }
 

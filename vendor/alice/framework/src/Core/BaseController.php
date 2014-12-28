@@ -9,6 +9,8 @@
  */
 class BaseController
 {
+    public $model = null;
+
     public function __construct()
     {
         //echo "I'm BaseController.<br />";
