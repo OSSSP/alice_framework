@@ -10,6 +10,11 @@ class testController extends Alice\Core\BaseController
         //echo "I'm testController<br />";
     }
 
+    public function index()
+    {
+        $this->view->renderView('test/index');
+    }
+
     public function test($parameter = false)
     {
         //echo "I'm test() method";

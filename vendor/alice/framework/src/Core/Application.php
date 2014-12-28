@@ -64,6 +64,11 @@ class Application
                 throw new \Exception("Controller {$controller_path} doesn't have a {$url[1]} method.", 1);
             }
         }
+        else
+        {
+            // If no method specified then call index() method by default
+            $controller->index();
+        }
     }
 
     public function bindPaths(array $paths)
@@ -75,7 +80,7 @@ class Application
         }
     }
 
-    public function getPath($path)
+    public static function getPath($path)
     {
         return isset(self::$paths[$path]) ? self::$paths[$path] : false;
     }

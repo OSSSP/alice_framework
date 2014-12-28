@@ -10,6 +10,7 @@ class BaseView
     public function renderView($name)
     {
         // TODO: check if view exists
-        require __DIR__ . "/../../../../../application/views/{$name}.php";
+        require Application::getPath('path.views') . "/$name.php";
+        //require __DIR__ . "/../../../../../application/views/{$name}.php";
     }
 }

@@ -8,7 +8,10 @@ class indexController extends Alice\Core\BaseController
         parent::__construct();
 
         //echo "I'm indexController<br />";
+    }
 
+    public function index()
+    {
         // Render homepage view
         $this->view->renderView('home/index');
     }
