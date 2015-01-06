@@ -21,22 +21,22 @@ class Application
         //echo "<br />";
 
         // The first portion of the url will always be the the name of the controller
-        $controller_path = Application::getPath('path.controllers') . DIRECTORY_SEPARATOR . "{$url[0]}Controller.php";
+        $controllerPath = Application::getPath('path.controllers') . DIRECTORY_SEPARATOR . "{$url[0]}Controller.php";
 
         // Before requiring the controller lets check if file exists
-        if (file_exists($controller_path))
+        if (file_exists($controllerPath))
         {
-            require $controller_path;
+            require $controllerPath;
         }
         else
         {
             // TODO: it would be nice to implement an exception handler.
-            throw new \Exception("Controller {$controller_path} not found.", 1);
+            throw new \Exception("Controller {$controllerPath} not found.", 1);
         }
 
         // Instantiate the Controller
-        $controller_name = $url[0] . 'Controller';
-        $controller = new $controller_name;
+        $controllerName = $url[0] . 'Controller';
+        $controller = new $controllerName;
 
         // The second portion of the url will always be the method, but I should check
         // if a parameter is passed to the method before calling it.
@@ -49,7 +49,7 @@ class Application
             }
             else
             {
-                throw new \Exception("Controller {$controller_path} doesn't have a {$url[1]} method.", 1);
+                throw new \Exception("Controller {$controllerPath} doesn't have a {$url[1]} method.", 1);
             }
         }
         else if (isset($url[1]))
@@ -61,7 +61,7 @@ class Application
             }
             else
             {
-                throw new \Exception("Controller {$controller_path} doesn't have a {$url[1]} method.", 1);
+                throw new \Exception("Controller {$controllerPath} doesn't have a {$url[1]} method.", 1);
             }
         }
         else
@@ -75,11 +75,11 @@ class Application
     {
         foreach ($paths as $key => $value)
         {
-            $real_path = realpath($value);
+            $realPath = realpath($value);
 
             // Do not include invalid paths
-            if (!isset(self::$paths["path.{$key}"]) && $real_path != false)
-                self::$paths["path.{$key}"] = $real_path;
+            if (!isset(self::$paths["path.{$key}"]) && $realPath != false)
+                self::$paths["path.{$key}"] = $realPath;
         }
     }
 
