@@ -9,4 +9,4 @@
 - [ ] Improve Model handling, a Controller should have access to multiple Models
 - [ ] Implement a custom Exception handler.
 - [ ] Implement a Routing object.
-- [ ] Implement a Configuration manager.
+- [x] Implement a Configuration manager.
