@@ -1,5 +1,7 @@
 <?php namespace Alice\Core;
 
+use Alice\Config\Config;
+
 class Application
 {
     protected static $paths = array();
@@ -11,6 +13,9 @@ class Application
 
     public function run()
     {
+        // First of all let's load configuration.
+        Config::load();
+
         // Get ?url and remove trailing '/'
         // If no controller is specified then load index by default
         $url = rtrim(isset($_GET['url']) ? $_GET['url'] : 'index', '/');
