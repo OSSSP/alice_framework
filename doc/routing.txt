@@ -1,0 +1,33 @@
+
+ATTENTION: THIS IS NOT THE FINAL DOCUMENTATION FOR ROUTING FUNCTIONALITY... I
+WILL EXPAND ON THIS SOON.
+
+Routes will work like so:
+
+
+Route                         Controller                     Method     Note
+
+users/show/ordered            showUsersAlphabetically()      GET
+users/show                    showUsers()                    GET
+users/show/{id}               showUserByID(id)               GET
+users/show/{param1}/{param2}  showUser(param1, param2)       GET
+users/create/{id,etc,etc}     createUser(id,etc,etc)         POST       User will see 
+                                                                        users/create
+                                                                        and registered route
+                                                                        will be the same.
+
+
+
+This is regexp for the following routes: /^(([a-z]+)(?:\/|\n|\b))+$/
+users/show
+users/show/ordered
+users/
+users
+
+This is regexp for the following routes: /^(([a-z]+)(?:\/|\n))+(\{[a-z0-9]+\}\/?)+$/
+users/show/{id}
+users/show/{id}/
+users/show/{id}/{id2}
+
+This is regexp for the following routes: /^(([a-z]+)(?:\/|\n))+(\{[a-z0-9,]+\})$/
+users/create/{id,username,password,notes}
