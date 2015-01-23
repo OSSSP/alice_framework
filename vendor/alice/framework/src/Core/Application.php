@@ -1,6 +1,7 @@
 <?php namespace Alice\Core;
 
 use Alice\Config\Config;
+use Alice\Routing\Router;
 
 class Application
 {
@@ -15,6 +16,19 @@ class Application
     {
         // First of all let's load configuration.
         Config::load();
+
+
+
+        /**
+         *  TESTING ROUTING
+         */
+        $router = new Router();
+        //$router->startRouting();
+
+
+
+
+
 
         // Get ?url and remove trailing '/'
         // If no controller is specified then load index by default
