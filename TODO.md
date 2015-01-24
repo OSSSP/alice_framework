@@ -7,6 +7,6 @@
 - [ ] Implement Form/Input object to handle user input.
 - [x] Models should be automatically included by the controller if present.
 - [ ] Improve Model handling, a Controller should have access to multiple Models
-- [ ] Implement a custom Exception handler.
+- [x] Implement a custom Exception handler.
 - [ ] Implement a Routing object.
 - [x] Implement a Configuration manager.
