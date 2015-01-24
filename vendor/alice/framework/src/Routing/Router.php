@@ -254,6 +254,8 @@ class Router
             echo "I've found the correct route... I'm gonna dispatch it now.<br />";
 
             // If params are needed set them now.
+            if (isset($this->routeParams))
+                self::$bindedRoutes[$this->routeIndex]->setParams($this->routeParams);
 
             // Dispatch the Route.
         }

@@ -96,6 +96,30 @@ class Route
     }
 
     /**
+     * This method is used to set the parameters of the Route.
+     *
+     * @param array $params The array of parameters to set.
+     */
+    public function setParams($params)
+    {
+        if ($this->routeType === 'POST')
+        {
+            $this->routeParams = array_replace($this->routeParams, $params);
+        }
+        elseif ($this->routeType === 'GET')
+        {
+            // GET params are stored differently.
+
+            $index = 0;
+            foreach ($this->routeParams as $paramName => $paramValue)
+            {
+                $this->routeParams[$paramName] = $params[$index];
+                $index++;
+            }
+        }
+    }
+
+    /**
      * This method is used to check whether specified Controller exists.
      *
      * @return boolean True if Controller exists.
