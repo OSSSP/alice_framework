@@ -7,7 +7,11 @@ class ConfigReader
 
     private static $routerConfig = array();
 
-    private static $exceptionConfig = array();
+    private static $exceptionConfig = array(
+        'exception.handle_with_controller' => false,
+        'exception.handle_controller' => null,
+        'exception.log_exception' => false
+    );
 
     // User defined config settings.
     private static $otherConfig = array();
@@ -62,7 +66,7 @@ class ConfigReader
                         return self::$routerConfig[$key];
                     break;
                 case 'exception':
-                    if (array_key_exists($key, $exceptionConfig))
+                    if (array_key_exists($key, self::$exceptionConfig))
                         return self::$exceptionConfig[$key];
                     break;
                 default:

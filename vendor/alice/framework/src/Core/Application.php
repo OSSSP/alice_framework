@@ -17,6 +17,11 @@ class Application
         // First of all let's load configuration.
         Config::load();
 
+        // Start Exception handling
+        //set_exception_handler(array('Alice\Core\AliceException', 'handleException'));
+        set_exception_handler('Alice\Core\AliceException::handleException');
+
+
 
 
         /**
