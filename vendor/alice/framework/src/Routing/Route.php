@@ -1,6 +1,7 @@
 <?php namespace Alice\Routing;
 
 use Alice\Core\Application;
+use Alice\Core\AliceException;
 
 class Route
 {
@@ -77,8 +78,7 @@ class Route
      * @param string $route        The actual Route to register.
      * @param string $handler      The Controller-Method pair separated by a '@'.
      * @param string $route_name   The name of the Route [optional].
-     * @throws RouteException      If Route is invalid.
-     * @throws ControllerException If Controller/Method is invalid.
+     * @throws AliceException      If Route is invalid or if Controller/Method is invalid.
      */
     public function registerGET($route, $handler, $route_name = false)
     {
@@ -118,14 +118,14 @@ class Route
         else
         {
             // This is an invalid route.
-            // TODO: throw Exception.
+            throw new AliceException($GLOBALS['INVALID_GET_ROUTE_MESSAGE'], $GLOBALS['INVALID_GET_ROUTE_CODE']);
         }
 
         // Now, for the controller part, it will always be Controller@Method
         if (!$this->setController($handler))
         {
             // Invalid Controller/Method.
-            // TODO: throw exception
+            throw new AliceException($GLOBALS['INVALID_ROUTE_HANDLER_MESSAGE'], $GLOBALS['INVALID_ROUTE_HANDLER_CODE']);
         }
     }
 

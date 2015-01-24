@@ -61,11 +61,12 @@ class Router
 
         if (self::routeExists($routeObject))
         {
-            // TODO: throw exception
+            throw new AliceException($GLOBALS['ROUTE_ALREADY_EXISTS_MESSAGE'], $GLOBALS['ROUTE_ALREADY_EXISTS_CODE']);
         }
         else
         {
-            // TODO: add this object to the list of routes.
+            // Add this object to the list of routes.
+            array_push(self::$bindedRoutes, $routeObject);
         }
     }
 
