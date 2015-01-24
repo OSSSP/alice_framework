@@ -152,7 +152,7 @@ class Router
                 $numberOfMatches = 0;
                 $routeURISplit = explode('/', $route->getURI());
 
-                if (($splittedURI[0] == $routeURISplit[0]) && $route->hasParams())
+                if (($splittedURI[0] === $routeURISplit[0]) && $route->hasParams())
                 {
                     $numberOfMatches++;
 
@@ -379,7 +379,22 @@ class Router
 
     /**
      * This method is used to get the Route URI based on its name.
+     *
+     * @param string $route_name The name of the Route.
+     * @throws AliceException    If named Route doesn't exists.
      */
-    public static function route()
-    {}
+    public static function route($route_name)
+    {
+        foreach (self::$bindedRoutes as $route)
+        {
+            if ($route->getName() === $route_name)
+            {
+                return $route->getURI();
+                break;
+            }
+        }
+
+        // Route doesn't exists, throw an exception.
+        throw new AliceException($GLOBALS['NAMED_ROUTE_NOT_FOUND_MESSAGE'], $GLOBALS['NAMED_ROUTE_NOT_FOUND_CODE']);
+    }
 }
