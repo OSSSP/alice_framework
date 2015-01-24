@@ -70,11 +70,29 @@ class Router
         }
     }
 
-    /**
+     /**
      * This method is used to register a POST Route.
+     *
+     * @param string $route      The actual Route to register.
+     * @param string $handler    The controller-method pair separated by a '@'.
+     * @param string $route_name The name of the Route [optional].
+     * @throws AliceException    If the Route already exists.
      */
-    public static function post()
-    {}
+    public static function post($route, $handler, $route_name = false)
+    {
+        $routeObject = new Route();
+        $routeObject->registerPOST($route, $handler, $route_name);
+
+        if (self::routeExists($routeObject))
+        {
+            throw new AliceException($GLOBALS['ROUTE_ALREADY_EXISTS_MESSAGE'], $GLOBALS['ROUTE_ALREADY_EXISTS_CODE']);
+        }
+        else
+        {
+            // Add this object to the list of routes.
+            array_push(self::$bindedRoutes, $routeObject);
+        }
+    }
 
     /**
      * This method is used to redirect to a custom location.

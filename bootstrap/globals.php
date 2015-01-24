@@ -15,5 +15,8 @@ $GLOBALS['ROUTE_ALREADY_EXISTS_MESSAGE'] = 'Routing Error: duplicate route entry
 $GLOBALS['INVALID_GET_ROUTE_CODE'] = 2;
 $GLOBALS['INVALID_GET_ROUTE_MESSAGE'] = 'Routing Error: GET route not recognized.';
 
+$GLOBALS['INVALID_POST_ROUTE_CODE'] = 2;
+$GLOBALS['INVALID_POST_ROUTE_MESSAGE'] = 'Routing Error: GET route not recognized.';
+
 $GLOBALS['INVALID_ROUTE_HANDLER_CODE'] = 3;
 $GLOBALS['INVALID_ROUTE_HANDLER_MESSAGE'] = 'Routing Error: Controller or Method not recognized.';

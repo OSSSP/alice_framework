@@ -129,11 +129,61 @@ class Route
         }
     }
 
-    /**
+     /**
      * This method is used to register a POST Route.
+     *
+     * @param string $route        The actual Route to register.
+     * @param string $handler      The Controller-Method pair separated by a '@'.
+     * @param string $route_name   The name of the Route [optional].
+     * @throws AliceException      If Route is invalid or if Controller/Method is invalid.
      */
-    public function registerPOST()
-    {}
+    public function registerPOST($route, $handler, $route_name = false)
+    {
+        // First this to do is to remove trailing '/' from the beginning and the end
+        // of the route.
+        $route = trim($route, '/');
+
+        // Now let's check if this is a valid POST route.
+        if (preg_match('/^(([a-z]+)(?:\/|\n))+(\{[a-z0-9,]+\})$/', $route, $matches))
+        {
+            // Valid POST request.
+
+            echo "Valid POST request.<br />";
+
+            $this->routeType = 'POST';
+            $this->routeName = ($route_name != false) ? $route_name : null;
+
+            // This will spit out the part before the params till the last '/'
+            $this->routeURI = rtrim(preg_split('/(\{[a-z0-9,]+\})/', $route)[0], '/');
+
+            // Now for the parameters.
+            $routePieces = explode('/', $route);
+            foreach ($routePieces as $piece)
+            {
+                if (preg_match('/^\{([a-z0-9,]+)\}$/', $piece, $parameters))
+                {
+                    // Those are going to be the parameter of the route.
+                    $paramsArray = explode(',', $parameters[1]);
+                    foreach ($paramsArray as $param)
+                    {
+                        $this->routeParams[$param] = null;
+                    }
+                }
+            }
+        }
+        else
+        {
+            throw new AliceException($GLOBALS['INVALID_POST_ROUTE_MESSAGE'], $GLOBALS['INVALID_POST_ROUTE_CODE']);
+        }
+
+        // Now, for the Controller part, it will always be Controller@Method.
+        if (!$this->setController($handler))
+        {
+            // Invalid Controller/Method.
+            throw new AliceException($GLOBALS['INVALID_ROUTE_HANDLER_MESSAGE'], $GLOBALS['INVALID_ROUTE_HANDLER_CODE']);
+        }
+
+    }
 
     /**
      * This method is used to pass the control flow to the Controller.
