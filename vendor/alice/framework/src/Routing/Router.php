@@ -126,7 +126,90 @@ class Router
      * @return boolean           True if found, false otherwise.
      */
     private function matchGET($currentURI)
-    {}
+    {
+        $found = false;
+        $index = 0;
+        $arrayOfMatches = array();
+        $splittedURI = explode('/', $currentURI);
+
+        foreach (self::$bindedRoutes as $route)
+        {
+            // No need to analyze POST requests here.
+            if ($route->getType() === 'GET')
+            {
+                // Easiest case first.
+                if ($route->getURI() === $currentURI && !$route->hasParams())
+                {
+                    // Gotcha.
+                    $found = true;
+                    $this->routeIndex = $index;
+
+                    // No need to continue wasting time.
+                    break;
+                }
+
+                $numberOfMatches = 0;
+                $routeURISplit = explode('/', $route->getURI());
+
+                if (($splittedURI[0] == $routeURISplit[0]) && $route->hasParams())
+                {
+                    $numberOfMatches++;
+
+                    /*
+                     * I need this to eliminate routes like
+                     * users/list when searching for users/1
+                     */
+                    if (count($routeURISplit) > count($splittedURI))
+                    {
+                        $numberOfMatches = 0;
+                    }
+
+                    for ($i = 1; $i < count($splittedURI); $i++)
+                    {
+                        if (isset($routeURISplit[$i]))
+                        {
+                            if ($routeURISplit[$i] === $splittedURI[$i])
+                                $numberOfMatches++;
+                            else
+                                $numberOfMatches--;
+                        }
+                    }
+
+                    $arrayOfMatches[$index] = $numberOfMatches;
+                }
+
+                // Incrementing index for next array entry.
+                $index++;
+            }
+        }
+
+        // Now try to find the Route with the same amount of params if I still don't have a match.
+        if (!$found && !empty($arrayOfMatches))
+        {
+            $highestMatches = array_keys($arrayOfMatches, max($arrayOfMatches));
+            foreach ($highestMatches as $match)
+            {
+                $matchedRoute = self::$bindedRoutes[$match];
+                $paramsPortion = ltrim(str_replace($matchedRoute->getURI(), '', $currentURI), '/');
+
+                // If $paramsPortion is empty it means that no params are passed.
+                $paramsCount = (empty($paramsPortion)) ? 0 : count(explode('/', $paramsPortion));
+
+                if ($paramsCount == $matchedRoute->paramsCount())
+                {
+                    $found = true;
+
+                    $this->routeIndex = $match;
+                    $this->routeParams = explode('/', $paramsPortion);
+
+                    // No need to continue on.
+                    break;
+                }
+            }
+        }
+
+        return $found;
+    }
 
     /**
      * This method is used to start the routing process.
