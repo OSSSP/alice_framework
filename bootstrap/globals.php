@@ -20,3 +20,6 @@ $GLOBALS['INVALID_POST_ROUTE_MESSAGE'] = 'Routing Error: GET route not recognize
 
 $GLOBALS['INVALID_ROUTE_HANDLER_CODE'] = 3;
 $GLOBALS['INVALID_ROUTE_HANDLER_MESSAGE'] = 'Routing Error: Controller or Method not recognized.';
+
+$GLOBALS['UNSUPPORTED_REQUEST_METHOD_CODE'] = 4;
+$GLOBALS['UNSUPPORTED_REQUEST_METHOD_MESSAGE'] = 'Routing Error: Unsupported request method, currently only GET and POST are available.';

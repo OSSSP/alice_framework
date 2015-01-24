@@ -66,6 +66,29 @@ class Router
     }
 
     /**
+     * This method is used to get the current HTTP Request Method.
+     *
+     * @throws AliceException Where method is not supported.
+     */
+    private function getRequestMethod()
+    {
+        $method = $_SERVER['REQUEST_METHOD'];
+
+        switch ($method)
+        {
+            case 'POST':
+                $this->requestMethod = 'POST';
+                break;
+            case 'GET':
+                $this->requestMethod = 'GET';
+                break;
+            default:
+                // Throw exception for unsupported request method.
+                throw new AliceException($GLOBALS['UNSUPPORTED_REQUEST_METHOD_MESSAGE'], $GLOBALS['UNSUPPORTED_REQUEST_METHOD_CODE']);
+        }
+    }
+
+    /**
      * This method is used to start the routing process.
      * It will get the current URI, try to match a Route and
      * finally dispatch it.
@@ -73,6 +96,8 @@ class Router
     public function startRouting()
     {
         $currentURI = $this->getURI();
+
+        $this->getRequestMethod();
 
         die($currentURI);
     }
