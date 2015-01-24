@@ -36,6 +36,66 @@ class Route
     private $routeMethod = '';
 
     /**
+     * This method is used to get the Type of the Route.
+     *
+     * @return string The type of the Route (GET or POST).
+     */
+    public function getType()
+    {
+        return $this->routeType;
+    }
+
+    /**
+     * This method is used to get the Name of the Route.
+     *
+     * @return NULL|string The name of the route if specified, NULL otherwise.
+     */
+    public function getName()
+    {
+        return $this->routeName;
+    }
+
+    /**
+     * This method is used to get the URI of the Route.
+     *
+     * @return string The URI of the Route (path/to/route).
+     */
+    public function getURI()
+    {
+        return $this->routeURI;
+    }
+
+    /**
+     * This method is used to check if the Route has parameters.
+     *
+     * @return boolean True if has parameters, false otherwise.
+     */
+    public function hasParams()
+    {
+        return (!empty($this->routeParams)) ? true : false;
+    }
+
+    /**
+     * This method is used to get the number of parameters of the Route.
+     *
+     * @return int The parameters count of the Route.
+     */
+    public function paramsCount()
+    {
+        return count($this->routeParams);
+    }
+
+    /**
+     * This method is used to get the parameters of the Route.
+     *
+     * @return array The array of parameters of the Route.
+     */
+    public function getParams()
+    {
+        return $this->routeParams;
+    }
+
+    /**
      * This method is used to check whether specified Controller exists.
      *
      * @return boolean True if Controller exists.

@@ -1,6 +1,7 @@
 <?php namespace Alice\Routing;
 
 use Alice\Core\Application;
+use Alice\Core\AliceException;
 
 class Router
 {
@@ -42,8 +43,34 @@ class Router
     public function startRouting()
     {}
 
+    /**
+     * This method is used to check whether a route already exists or not.
+     *
+     * @param string $route The wannabe Route.
+     * @return boolean      True if exists, false otherwise.
+     */
     private static function routeExists($route)
     {
+        foreach (self::$bindedRoutes as $bindedRoute)
+        {
+            if ($bindedRoute->getURI() === $route->getURI() && ($bindedRoute->getType() === $route->getType()))
+            {
+                // If it is a GET Route check if parameters count is the same.
+                // Else if it is a POST Route check if parameters are the same.
+
+                if (($route->getType() === 'GET') && $bindedRoute->paramsCount() == $route->paramsCount())
+                {
+                    return true;
+                }
+                else if (($route->getType() === 'POST') && ($bindedRoute->getParams() == $route->getParams()))
+                {
+                    return true;
+                }
+            }
+        }
+
+        // Route is unique.
+        return false;
     }
 
     /**
