@@ -271,7 +271,34 @@ class Route
 
     /**
      * This method is used to pass the control flow to the Controller.
+     *
+     * @throws AliceException If Controller's Method doesn't exists.
      */
     public function dispatch()
-    {}
+    {
+        echo "---------- Dispatching Route ----------<br />";
+
+        $controllerPath = Application::getPath('path.controllers') . DIRECTORY_SEPARATOR . $this->routeController . '.php';
+        require $controllerPath;
+
+        $handler = new $this->routeController;
+        if (method_exists($handler, $this->routeMethod))
+        {
+            // Now I need to check if there are params to pass to the Method and finally pass the flow to the Controller.
+            if ($this->paramsCount() > 0)
+            {
+                call_user_func_array(array($handler, $this->routeMethod), $this->routeParams);
+            }
+            else
+            {
+                call_user_func(array($handler, $this->routeMethod));
+            }
+        }
+        else
+        {
+            // Throw exception cause Method doesn't exists.
+            throw new AliceException($GLOBALS['DISPATCH_METHOD_DOESNT_EXISTS_MESSAGE'], $GLOBALS['DISPATCH_METHOD_DOESNT_EXISTS_CODE']);
+        }
+
+    }
 }

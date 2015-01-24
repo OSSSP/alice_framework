@@ -258,6 +258,7 @@ class Router
                 self::$bindedRoutes[$this->routeIndex]->setParams($this->routeParams);
 
             // Dispatch the Route.
+            self::$bindedRoutes[$this->routeIndex]->dispatch();
         }
         else
         {
