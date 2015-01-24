@@ -2,6 +2,7 @@
 
 use Alice\Core\Application;
 use Alice\Core\AliceException;
+use Alice\Config\Config;
 
 class Router
 {
@@ -267,10 +268,9 @@ class Router
              * if I have to handle this within the Router I would just throw an exception
              * else just do what I do on exception handling if controller based.
              */
+            //TODO: finish to implement this...
             echo "Route not found... redirecting to error page.";
         }
-
-        die();
     }
 
     /**
@@ -353,9 +353,29 @@ class Router
 
     /**
      * This method is used to redirect to a custom location.
+     *
+     * @param string $location The relative location of the redirect.
+     * @param int $status_code The status code, by default is 301.
      */
-    public static function redirect()
-    {}
+    public static function redirect($location, $status_code = 301)
+    {
+        /*
+         * Even though I prefer using HTTP 303 status code (See Other), I stick with
+         * HTTP 301 (Moved Permanently) because it looks like that many pre-HTTP/1.1 user agents
+         * are incompatible.
+         * See http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.4 for details.
+         */
+
+        $location = Config::get('application.base_url') . '/' . $location;
+
+        header('Location: ' . $location, true, $status_code);
+
+        /*
+         * The use of die() is mandatory here.
+         * More info: http://thedailywtf.com/Articles/WellIntentioned-Destruction.aspx
+         */
+        die();
+    }
 
     /**
      * This method is used to get the Route URI based on its name.

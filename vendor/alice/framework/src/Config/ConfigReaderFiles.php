@@ -9,12 +9,12 @@ class ConfigReaderFiles extends ConfigReader
         self::loadConfigFromFiles();
     }
 
-    private function parseFile($file)
+    private static function parseFile($file)
     {
         // At this point filenames will always end with .config.php
         $masterConfigKey = strstr($file, '.config.php', true);
 
-        $setting = require Application::getPath('path.config') . DIRECTORY_SEPARATOR . $file;
+        $settings = require Application::getPath('path.config') . DIRECTORY_SEPARATOR . $file;
 
         foreach ($settings as $key => $value)
         {

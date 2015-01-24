@@ -31,7 +31,7 @@ class Application
         $router->startRouting();
 
 
-
+        die();
 
 
 
