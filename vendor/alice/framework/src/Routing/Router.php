@@ -89,6 +89,46 @@ class Router
     }
 
     /**
+     * This method is used to try to match a POST request.
+     *
+     * @param string $currentURI The Route to match.
+     * @return boolean           True if found, false otherwise.
+     */
+    private function matchPOST($currentURI)
+    {
+        $found = false;
+        $index = 0;
+
+        foreach (self::$bindedRoutes as $route)
+        {
+            // Parenthesis are just for readability
+            if ( ($route->getType() === 'POST') && ($route->getURI() === $currentURI) && (array_keys($_POST) == array_keys($route->getParams())) )
+            {
+                $found = true;
+
+                $this->routeIndex = $index;
+                $this->routeParams = $_POST;
+
+                // No need to continue on.
+                break;
+            }
+
+            $index++;
+        }
+
+        return $found;
+    }
+
+    /**
+     * This method is used to try to match a GET request.
+     *
+     * @param string $currentURI The Route to match.
+     * @return boolean           True if found, false otherwise.
+     */
+    private function matchGET($currentURI)
+    {}
+
+    /**
      * This method is used to start the routing process.
      * It will get the current URI, try to match a Route and
      * finally dispatch it.
@@ -99,7 +139,52 @@ class Router
 
         $this->getRequestMethod();
 
-        die($currentURI);
+        /*
+         * If URI corresponds to index.php just redirect to
+         * the GET route without parameters called 'index'.
+         */
+        if ($currentURI === 'index.php') $currentURI = 'index';
+
+        echo "Trying to resolve: " . $currentURI . "<br />";
+        echo "Method: " . $this->requestMethod . "<br />";
+
+        $routeFound = false;
+        $routeParams = null;
+
+        if ($this->requestMethod === 'POST')
+        {
+            // Match the POST request.
+
+            if ($this->matchPOST($currentURI) !== false)
+                $routeFound = true;
+        }
+        elseif ($this->requestMethod === 'GET')
+        {
+            // Match the GET request.
+
+            if ($this->matchGET($currentURI) !== false)
+                $routeFound = true;
+        }
+
+        if ($routeFound)
+        {
+            echo "I've found the correct route... I'm gonna dispatch it now.<br />";
+
+            // If params are needed set them now.
+
+            // Dispatch the Route.
+        }
+        else
+        {
+            /*
+             * Based on config.what_to_do_when_not_found
+             * if I have to handle this within the Router I would just throw an exception
+             * else just do what I do on exception handling if controller based.
+             */
+            echo "Route not found... redirecting to error page.";
+        }
+
+        die();
     }
 
     /**
