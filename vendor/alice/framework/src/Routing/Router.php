@@ -38,10 +38,44 @@ class Router
     }
 
     /**
+     * This method is used to get the current URI.
+     *
+     * @return string The urldecoded URI without basepath.
+     */
+    private function getURI()
+    {
+        // SCRIPT_NAME will always be path/to/index.php
+
+        // Get URI starting after the basepath.
+        $basepath = implode('/', array_slice(explode('/', $_SERVER['SCRIPT_NAME']), 0, -1)) . '/';
+        $uri = substr($_SERVER['REQUEST_URI'], strlen($basepath));
+
+        // Remove every possible custom query string... like '?param=test'
+        if (strstr($uri, '?'))
+        {
+            $uri = substr($uri, 0, strpos($uri, '?'));
+        }
+
+        // Remove index.php if used in the url.
+        $uri = preg_split('/^index.php\//', rtrim($uri, '/'), -1, PREG_SPLIT_NO_EMPTY)[0];
+
+        // Remove trailing '/'.
+        $uri = trim($uri, '/');
+
+        return urldecode($uri);
+    }
+
+    /**
      * This method is used to start the routing process.
+     * It will get the current URI, try to match a Route and
+     * finally dispatch it.
      */
     public function startRouting()
-    {}
+    {
+        $currentURI = $this->getURI();
+
+        die($currentURI);
+    }
 
     /**
      * This method is used to check whether a route already exists or not.

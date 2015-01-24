@@ -28,7 +28,7 @@ class Application
          *  TESTING ROUTING
          */
         $router = new Router();
-        //$router->startRouting();
+        $router->startRouting();
 
 
 
