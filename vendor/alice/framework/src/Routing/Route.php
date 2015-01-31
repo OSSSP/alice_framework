@@ -175,16 +175,12 @@ class Route
         {
             // GET request without parameters.
 
-            echo "GET request without params<br />";
-
             $this->routeName = ($route_name != false) ? $route_name : null;
             $this->routeURI = $route;
         }
         elseif (preg_match('/^(([a-z]+)(?:\/|\n))+(\{[a-z0-9]+\}\/?)+$/', $route))
         {
             // GET request with parameters.
-
-            echo "GET request with params<br />";
 
             $this->routeName = ($route_name != false) ? $route_name : null;
             $this->routeURI = preg_split('/\/(\{[a-z0-9]+\}\/?)+$/', $route, -1, PREG_SPLIT_NO_EMPTY)[0];
@@ -232,8 +228,6 @@ class Route
         {
             // Valid POST request.
 
-            echo "Valid POST request.<br />";
-
             $this->routeType = 'POST';
             $this->routeName = ($route_name != false) ? $route_name : null;
 
@@ -276,8 +270,6 @@ class Route
      */
     public function dispatch()
     {
-        echo "---------- Dispatching Route ----------<br />";
-
         $controllerPath = Application::getPath('path.controllers') . DIRECTORY_SEPARATOR . $this->routeController . '.php';
         require $controllerPath;
 
