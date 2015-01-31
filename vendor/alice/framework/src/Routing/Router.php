@@ -49,7 +49,7 @@ class Router
 
         // Get URI starting after the basepath.
         $basepath = implode('/', array_slice(explode('/', $_SERVER['SCRIPT_NAME']), 0, -1)) . '/';
-        $uri = substr($_SERVER['REQUEST_URI'], strlen($basepath));
+        $uri = substr(urldecode($_SERVER['REQUEST_URI']), strlen($basepath));
 
         // Remove every possible custom query string... like '?param=test'
         if (strstr($uri, '?'))
