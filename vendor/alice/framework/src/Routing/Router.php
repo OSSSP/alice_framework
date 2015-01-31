@@ -28,8 +28,6 @@ class Router
 
     public function __construct()
     {
-        echo "I'm Router::__construct()<br />";
-
         // If application/routes.php exists then load routes from there.
         $routesPath = Application::getPath('path.application') . DIRECTORY_SEPARATOR . 'routes.php';
         if (file_exists($routesPath))
@@ -228,9 +226,6 @@ class Router
          */
         if ($currentURI === 'index.php') $currentURI = 'index';
 
-        echo "Trying to resolve: " . $currentURI . "<br />";
-        echo "Method: " . $this->requestMethod . "<br />";
-
         $routeFound = false;
         $routeParams = null;
 
@@ -251,8 +246,6 @@ class Router
 
         if ($routeFound)
         {
-            echo "I've found the correct route... I'm gonna dispatch it now.<br />";
-
             // If params are needed set them now.
             if (isset($this->routeParams))
                 self::$bindedRoutes[$this->routeIndex]->setParams($this->routeParams);
