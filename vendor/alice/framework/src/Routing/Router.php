@@ -178,10 +178,9 @@ class Router
 
                     $arrayOfMatches[$index] = $numberOfMatches;
                 }
-
-                // Incrementing index for next array entry.
-                $index++;
             }
+            // Incrementing index for next array entry.
+            $index++;
         }
 
         // Now try to find the Route with the same amount of params if I still don't have a match.
