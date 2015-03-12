@@ -214,6 +214,23 @@ class Router
     }
 
     /**
+     * This method is used to send a 404 response code to the browser, and also show
+     * a 404 page.
+     */
+    private function show404()
+    {
+        if (function_exists('http_response_code'))
+            http_response_code(404);
+        else
+            header('HTTP/1.1 404 Not Found');
+
+        echo "<h1>Not Found</h1>";
+        echo "The requested URL was not found on this server.";
+
+        die();
+    }
+
+    /**
      * This method is used to start the routing process.
      * It will get the current URI, try to match a Route and
      * finally dispatch it.
@@ -259,13 +276,50 @@ class Router
         }
         else
         {
-            /*
-             * Based on config.what_to_do_when_not_found
-             * if I have to handle this within the Router I would just throw an exception
-             * else just do what I do on exception handling if controller based.
-             */
-            //TODO: finish to implement this...
-            echo "Route not found... redirecting to error page.";
+            // Handle route not found depending on router.handle_with_controller configuration.
+
+            $handleWithController = false;
+
+            if (Config::get('router.handle_with_controller'))
+            {
+                // First of all check that handle_controller config is using a valid format (Controller@Method).
+                $controller = Config::get('router.handle_controller');
+                if (preg_match('/^\w+@\w+$/', $controller))
+                {
+                    list($controller, $method) = explode('@', $controller);
+
+                    $controllerPath = Application::getPath('path.controllers') . DIRECTORY_SEPARATOR . $controller . '.php';
+                    if (file_exists($controllerPath))
+                    {
+                        $handleWithController = true;
+                    }
+                }
+            }
+
+            if ($handleWithController)
+            {
+                require_once $controllerPath;
+                $handler = new $controller;
+
+                if (method_exists($handler, $method))
+                {
+                    // Do I need to pass route?
+                    if (Config::get('router.pass_route'))
+                        $handler->$method($currentURI);
+                    else
+                        $handler->$method();
+                }
+                else
+                {
+                    // Specified method to handle 404 doesn't exists.
+                    throw new AliceException($GLOBALS['404_METHOD_NOT_FOUND_MESSAGE'], $GLOBALS['404_METHOD_NOT_FOUND_CODE']);
+                }
+            }
+            else
+            {
+                // Route not found, show 404 page.
+                $this->show404();
+            }
         }
     }
 

@@ -29,3 +29,6 @@ $GLOBALS['DISPATCH_METHOD_DOESNT_EXISTS_MESSAGE'] = 'Dispatching error: The spec
 
 $GLOBALS['NAMED_ROUTE_NOT_FOUND_CODE'] = 6;
 $GLOBALS['NAMED_ROUTE_NOT_FOUND_MESSAGE'] = 'Routing Error: The specified named Route doesn\'t exists.';
+
+$GLOBALS['404_METHOD_NOT_FOUND_CODE'] = 7;
+$GLOBALS['404_METHOD_NOT_FOUND_MESSAGE'] = 'Routing Error: The method specified to handle 404 page was not found. Please check your configuration.';

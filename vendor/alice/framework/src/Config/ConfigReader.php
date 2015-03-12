@@ -5,7 +5,11 @@ class ConfigReader
     // Default config settings.
     private static $applicationConfig = array();
 
-    private static $routerConfig = array();
+    private static $routerConfig = array(
+        'router.handle_with_controller' => false,
+        'router.handle_controller' => null,
+        'router.log_exception' => false
+    );
 
     private static $exceptionConfig = array(
         'exception.handle_with_controller' => false,
