@@ -11,3 +11,5 @@ Router::get('users/{param1}/{param2}/{param3}', 'testController@showUserD');
 
 Router::post('testpost/{id,hello}', 'testController@showPost');
 Router::post('testpost/{id,username}', 'testController@showPostA');
+
+Router::get('database', 'testController@database');

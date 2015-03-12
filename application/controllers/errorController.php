@@ -15,4 +15,13 @@ class errorController extends BaseController
     {
         echo "errorController: Got a 404 page.";
     }
+
+    public function handleDBError($error, $query = false)
+    {
+        echo "errorController@handleDBError<br />";
+        var_dump($error);
+        echo "<br />";
+        if ($query)
+            var_dump($query);
+    }
 }

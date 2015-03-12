@@ -17,6 +17,12 @@ class ConfigReader
         'exception.log_exception' => false
     );
 
+    private static $databaseConfig = array(
+        'database.handle_with_controller' => false,
+        'database.handle_controller' => null,
+        'database.log_exception' => false
+    );
+
     // User defined config settings.
     private static $otherConfig = array();
 
@@ -37,6 +43,9 @@ class ConfigReader
                 break;
             case 'exception':
                 self::$exceptionConfig["exception.$key"] = $value;
+                break;
+            case 'database':
+                self::$databaseConfig["database.$key"] = $value;
                 break;
             default:
                 if (!$context)
@@ -73,6 +82,10 @@ class ConfigReader
                     if (array_key_exists($key, self::$exceptionConfig))
                         return self::$exceptionConfig[$key];
                     break;
+                case 'database':
+                    if (array_key_exists($key, self::$databaseConfig))
+                        return self::$databaseConfig[$key];
+                    break;
                 default:
                     if (array_key_exists($key, self::$otherConfig))
                         return self::$otherConfig[$key];
@@ -84,7 +97,7 @@ class ConfigReader
         else
         {
             // Merge all settings.
-            $configSettings = array_merge(self::$applicationConfig, self::$routerConfig, self::$exceptionConfig, self::$otherConfig);
+            $configSettings = array_merge(self::$applicationConfig, self::$routerConfig, self::$exceptionConfig, self::$databaseConfig, self::$otherConfig);
 
             if (array_key_exists($key, $configSettings))
                 return $configSettings[$key];
@@ -118,6 +131,13 @@ class ConfigReader
                 if (array_key_exists($key, self::$exceptionConfig))
                 {
                     unset(self::$exceptionConfig[$key]);
+                    return true;
+                }
+                break;
+            case 'database':
+                if (array_key_exists($key, self::$databaseConfig))
+                {
+                    unset(self::$databaseConfig[$key]);
                     return true;
                 }
                 break;

@@ -69,4 +69,11 @@ class testController extends Alice\Core\BaseController
         echo "<br />Username:<br />";
         var_dump($username);
     }
+
+    public function database()
+    {
+        echo "testController@database()<br />";
+
+        $this->model->testDB();
+    }
 }
