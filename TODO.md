@@ -8,5 +8,5 @@
 - [x] Models should be automatically included by the controller if present.
 - [ ] Improve Model handling, a Controller should have access to multiple Models
 - [x] Implement a custom Exception handler.
-- [ ] Implement a Routing object.
+- [x] Implement a Routing object.
 - [x] Implement a Configuration manager.
