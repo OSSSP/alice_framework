@@ -55,11 +55,15 @@ class Router
             $uri = substr($uri, 0, strpos($uri, '?'));
         }
 
-        // Remove index.php if used in the url.
-        $uri = preg_split('/^index.php\//', rtrim($uri, '/'), -1, PREG_SPLIT_NO_EMPTY)[0];
+        // If the user browse to public/ without providing anything then $uri will be empty
+        if (!empty($uri))
+        {
+            // Remove index.php if used in the url.
+            $uri = preg_split('/^index.php\//', rtrim($uri, '/'), -1, PREG_SPLIT_NO_EMPTY)[0];
 
-        // Remove trailing '/'.
-        $uri = trim($uri, '/');
+            // Remove trailing '/'.
+            $uri = trim($uri, '/');
+        }
 
         return urldecode($uri);
     }
@@ -221,10 +225,10 @@ class Router
         $this->getRequestMethod();
 
         /*
-         * If URI corresponds to index.php just redirect to
+         * If URI corresponds to index.php or is empty just redirect to
          * the GET route without parameters called 'index'.
          */
-        if ($currentURI === 'index.php') $currentURI = 'index';
+        if ($currentURI === 'index.php'|| $currentURI === '') $currentURI = 'index';
 
         $routeFound = false;
         $routeParams = null;
