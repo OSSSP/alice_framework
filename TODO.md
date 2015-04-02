@@ -2,7 +2,7 @@
 
 - [x] Create an MVC like directory structure.
 - [ ] Create the skeleton framework.
-- [ ] Implement basic View partialization.
+- [x] Implement basic View partialization.
 - [x] Implement namespacing and autoloading.
 - [ ] Implement Form/Input object to handle user input.
 - [x] Models should be automatically included by the controller if present.
