@@ -50,3 +50,9 @@ $GLOBALS['DB_SYNTAX_ERROR_MESSAGE'] = 'Database Error: Syntax error or access vi
 
 $GLOBALS['DB_PARAM_BIND_ERROR_CODE'] = 12;
 $GLOBALS['DB_PARAM_BIND_ERROR_MESSAGE'] = 'Parameter Binding: An error occurred while binding parameters.';
+
+/**
+ * View specific errors.
+ */
+$GLOBALS['VIEW_NOT_FOUND_CODE'] = 13;
+$GLOBALS['VIEW_NOT_FOUND_MESSAGE'] = 'View rendering: An error occurred while rendering the view, file doesn\'t exists.';

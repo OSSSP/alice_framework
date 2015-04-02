@@ -13,6 +13,8 @@ class indexController extends Alice\Core\BaseController
     public function index()
     {
         // Render homepage view
-        $this->view->renderView('home/index');
+        $this->view->renderView('home/extendedindex', array(
+            'age' => 123
+        ));
     }
 }
