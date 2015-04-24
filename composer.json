@@ -19,6 +19,9 @@
     "autoload": {
         "psr-4": {
             "Alice\\": "vendor/alice/framework/src"
-        }
+        },
+        "files" : [
+            "vendor/alice/framework/src/Support/encoding.helper.php"
+        ]
     }
 }

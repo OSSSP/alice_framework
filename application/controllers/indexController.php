@@ -14,7 +14,9 @@ class indexController extends Alice\Core\BaseController
     {
         // Render homepage view
         $this->view->renderView('home/extendedindex', array(
-            'age' => 123
+            'age' => 123,
+            'what_is_this' => 'script',
+            'scriptTag' => '<script>alert(123)</script>',
         ));
     }
 }
