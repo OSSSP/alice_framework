@@ -75,25 +75,20 @@ class BaseView
                  */
                 list($variableName, $defaultValue) = array_pad(explode('|', $matches[1][$i], 2), 2, '');
 
-                // TODO: I can extract this by creating a start with function
-                // Search backwards starting from haystack length characters from the end
-                if (strrpos($variableName, 'e', -strlen($variableName)) === 0)
+                // Check if variable needs to be encoded.
+                if (startsWith($variableName, 'e'))
                 {
-                    //echo "<br /><br />this variable [$variableName] starts with e<br />";
                     $variableName = ltrim($variableName, 'e');
                     $escaped = true;
-                    //echo "Now variable is: $variableName<br /><br />";
                 }
 
-                // I also need to remove unnecessary spaces
+                // I also need to remove unnecessary spaces.
                 $variableName = trim(ltrim($variableName, '@'));
                 $defaultValue = trim($defaultValue);
 
                 if (isset($this->viewVariables[$variableName]))
                 {
-                    //TODO: include sanitization of the variables.
                     $this->compiledView = str_replace($matches[0][$i], ($escaped == true) ? ent($this->viewVariables[$variableName]) : $this->viewVariables[$variableName], $this->compiledView);
-                    //$this->compiledView = str_replace($matches[0][$i], $this->viewVariables[$variableName], $this->compiledView);
                 }
                 else
                 {
