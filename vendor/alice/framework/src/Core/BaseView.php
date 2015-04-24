@@ -62,6 +62,10 @@ class BaseView
      */
     private function evalVariables()
     {
+        /*
+         * TODO: This expression is not taking into account default values with special chars in it, only A-Za-z0-9_
+         *       Make this work even with those characters.
+         */
         if (preg_match_all("/##\s(e?@(?:\w|\s)+\|?(?:\w|\s)+)##/", $this->compiledView, $matches))
         {
             for ($i = 0; $i < count($matches[0]); $i++)
