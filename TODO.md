@@ -4,7 +4,6 @@
 - [ ] Create the skeleton framework.
 - [x] Implement basic View partialization.
 - [x] Implement namespacing and autoloading.
-- [ ] Implement Form/Input object to handle user input.
 - [x] Models should be automatically included by the controller if present.
 - [ ] Improve Model handling, a Controller should have access to multiple Models
 - [x] Implement a custom Exception handler.
