@@ -62,11 +62,17 @@ class BaseView
      */
     private function evalVariables()
     {
-        if (preg_match_all("/##\s(@(?:\w|\s)+\|(?:\w|\s)+)##/", $this->compiledView, $matches))
+        if (preg_match_all("/##\s(e?@(?:\w|\s)+\|?(?:\w|\s)+)##/", $this->compiledView, $matches))
         {
             for ($i = 0; $i < count($matches[0]); $i++)
             {
-                list($variableName, $defaultValue) = explode('|', $matches[1][$i]);
+                /*
+                 * In order to make this work for variables with and without a default value I need to limit the size
+                 * of the array returned by explode() to 2 values and, if there are less than 2 values returned, append
+                 * an empty string with array_pad().
+                 */
+                list($variableName, $defaultValue) = array_pad(explode('|', $matches[1][$i], 2), 2, '');
+
                 $variableName = ltrim($variableName, '@');
                 $defaultValue = trim($defaultValue);
 

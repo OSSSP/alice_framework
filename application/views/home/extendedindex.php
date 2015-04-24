@@ -21,6 +21,8 @@
 
         ## include('home.partials.test') ##
 
+        <p>This ## @what_is_this ## should work even if I don't provide a default value for a variable.</p>
+
     </div>
 
     ## include('partials.footer') ##
